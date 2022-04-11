@@ -1,5 +1,5 @@
 import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
+import { render } from 'react-dom';
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 
@@ -27,10 +27,9 @@ if (import.meta.env.VITE_SENTRY_WEB_DSN) {
   });
 }
 
-const container = document.getElementById('app')!;
-const root = createRoot(container);
-root.render(
+render(
   <StrictMode>
     <App />
-  </StrictMode>
+  </StrictMode>,
+  document.getElementById('app')
 );
