@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #app {
+  height: 100%;
+}
+
+@layer base {
+  svg {
+    vertical-align: baseline;
+  }
+}
+
+body{
+  @apply text-base text-[#183247];
+}
+
+.markdown-body {
+  @apply text-base;
+}
+.markdown-body ul {
+  list-style: disc;
+}
+.markdown-body ol {
+  list-style: decimal;
+}
+.markdown-body a {
+  @apply text-primary;
+}
