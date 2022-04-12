@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     port: 8081,
     proxy: {
-      '/api/v1': 'http://127.0.0.1:3000',
+      '/api/v1': 'http://dev.support.tdspowered.local:3000',
     },
   },
   resolve: {
