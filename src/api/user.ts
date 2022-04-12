@@ -42,7 +42,7 @@ export interface UseUsersOptions extends FindUsersOptions {
   queryOptions?: UseQueryOptions<UserSchema[], Error>;
 }
 
-export const useUsers = ({ queryOptions, ...options }: UseUsersOptions) =>
+export const useUsers = ({ queryOptions, ...options }: UseUsersOptions = {}) =>
   useQuery({
     queryKey: ['users', options],
     queryFn: () => findUsers(options),

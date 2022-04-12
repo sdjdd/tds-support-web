@@ -3,10 +3,16 @@ import { Route, Routes } from 'react-router-dom';
 import { SubMenu, MenuDataItem } from '@/components/Page';
 
 import { Members } from './Members';
+import { CategoryList, NewCategory, CategoryDetail } from './Categories';
 
 const SettingRoutes = () => (
   <Routes>
     <Route path="/members" element={<Members />} />
+    <Route path="/categories">
+      <Route index element={<CategoryList />} />
+      <Route path="new" element={<NewCategory />} />
+      <Route path=":id" element={<CategoryDetail />} />
+    </Route>
   </Routes>
 );
 
