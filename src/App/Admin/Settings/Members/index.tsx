@@ -88,7 +88,6 @@ export function Members() {
     isLoading: loadingUsers,
     refetch,
   } = useUsers({
-    pageSize: 1,
     role: ['admin', 'agent'],
   });
 
