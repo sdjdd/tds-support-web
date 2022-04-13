@@ -201,9 +201,6 @@ export function CategoryList() {
       queryClient.invalidateQueries('categories');
       setSorting(false);
     },
-    onError: (error) => {
-      message.error(error.message);
-    },
   });
 
   return (
@@ -263,9 +260,6 @@ export function NewCategory() {
       message.success('创建成功');
       navigate('..');
     },
-    onError: (error) => {
-      message.error(error.message);
-    },
   });
 
   return (
@@ -305,9 +299,6 @@ export function CategoryDetail() {
         }
       });
       message.success('更新成功');
-    },
-    onError: (error) => {
-      message.error(error.message);
     },
   });
 

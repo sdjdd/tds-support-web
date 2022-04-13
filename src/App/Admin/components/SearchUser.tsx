@@ -3,7 +3,7 @@ import { useDebounce } from 'react-use';
 import { RefSelectProps } from 'antd/lib/select';
 
 import { useSearchUsers, useUser } from '@/api/user';
-import { Select, SelectProps, Spin, message } from '@/components/antd';
+import { Select, SelectProps, Spin } from '@/components/antd';
 
 export interface SearchUserProps extends SelectProps<number> {}
 
@@ -14,19 +14,11 @@ export const SearchUser = forwardRef<RefSelectProps, SearchUserProps>((props, re
 
   const { data: user, isLoading: loadingUser } = useUser(props.value!, {
     enabled: props.value !== undefined,
-    onError: (error) => {
-      console.log(error);
-      message.error(error.message);
-    },
   });
 
   const { data: users, isLoading: loadingUsers } = useSearchUsers(debouncedKeyword, {
     enabled: !!debouncedKeyword,
     staleTime: Infinity,
-    onError: (error) => {
-      console.log(error);
-      message.error(error.message);
-    },
   });
 
   const options = useMemo(() => {

@@ -20,10 +20,6 @@ function AddUserModal({ visible, onHide }: AddUserModalProps) {
 
   const { data, isLoading } = useSearchUsers(debouncedKeyword, {
     enabled: !!debouncedKeyword,
-    onError: (error) => {
-      console.log(error);
-      message.error(error.message);
-    },
   });
 
   const options = useMemo(
@@ -48,9 +44,6 @@ function AddUserModal({ visible, onHide }: AddUserModalProps) {
       message.success('添加成功');
       queryClient.invalidateQueries('users');
       onHide();
-    },
-    onError: (error) => {
-      message.error(error.message);
     },
   });
 
@@ -91,10 +84,6 @@ export function Members() {
     onSuccess: () => {
       message.success('移除成功');
       refetch();
-    },
-    onError: (error) => {
-      console.error(error);
-      message.error(error.message);
     },
   });
 
