@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useQueryClient } from 'react-query';
 import { useDebounce } from 'react-use';
 
-import { UserSchema, useSearchUsers, useUpdateUser, useUsers } from '@/api/user';
+import { UserSchema, useAgents, useSearchUsers, useUpdateUser } from '@/api/user';
 import { Button, Modal, Select, Spin, Table, message } from '@/components/antd';
 
 const { Column } = Table;
@@ -83,13 +83,7 @@ function AddUserModal({ visible, onHide }: AddUserModalProps) {
 }
 
 export function Members() {
-  const {
-    data: users,
-    isLoading: loadingUsers,
-    refetch,
-  } = useUsers({
-    role: ['admin', 'agent'],
-  });
+  const { data: agents, isLoading: loadingAgents, refetch } = useAgents();
 
   const [addUserModalVisible, setAddUserModalVisible] = useState(false);
 
@@ -131,8 +125,8 @@ export function Members() {
       <Table
         className="mt-5"
         rowKey="id"
-        dataSource={users}
-        loading={loadingUsers}
+        dataSource={agents}
+        loading={loadingAgents}
         pagination={false}
       >
         <Column dataIndex="username" title="用户名" />

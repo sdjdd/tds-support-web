@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { Sidebar } from './components/Sidebar';
 import { Topbar } from './components/Topbar';
 
+import Tickets from './Tickets';
 import Settings from './Settings';
 
 export default function AdminPage() {
@@ -13,6 +14,7 @@ export default function AdminPage() {
         <Topbar />
         <div className="overflow-hidden">
           <Routes>
+            <Route path="/tickets/*" element={<Tickets />} />
             <Route path="/settings/*" element={<Settings />} />
           </Routes>
         </div>

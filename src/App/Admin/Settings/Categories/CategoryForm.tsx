@@ -1,35 +1,15 @@
-import { forwardRef, useCallback } from 'react';
+import { useCallback } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import { RefSelectProps } from 'antd/lib/select';
 
 import { useCategories } from '@/api/category';
+import { Button, Form, Input } from '@/components/antd';
 import { useCategoryTree } from './utils/category-tree';
-
-import { Button, Form, Input, TreeSelect, TreeSelectProps } from '@/components/antd';
+import { CategoryTreeSelect } from './CategoryTreeSelect';
 
 const { TextArea } = Input;
 
 const FORM_ITEM_STYLE = { marginBottom: 16 };
-
-const CategoryTreeSelect = forwardRef<RefSelectProps, TreeSelectProps<number | undefined>>(
-  (props, ref) => {
-    const { data: categories, isLoading } = useCategories();
-    const categoryTree = useCategoryTree(categories);
-
-    return (
-      <TreeSelect
-        {...props}
-        ref={ref}
-        showSearch
-        treeNodeFilterProp="name"
-        loading={isLoading}
-        treeData={categoryTree}
-        fieldNames={{ label: 'name', value: 'id' }}
-      />
-    );
-  }
-);
 
 export interface CategoryFormData {
   name: string;
