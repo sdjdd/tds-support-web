@@ -1,10 +1,11 @@
 import { lazy, Suspense } from 'react';
 import { QueryClientProvider } from 'react-query';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 
 import { queryClient } from '@/api/query-client';
 import { Spin } from '@/components/antd';
+import { useCurrentUser } from './states';
 
 const Login = lazy(() => import('./Login'));
 const Admin = lazy(() => import('./Admin'));
@@ -17,13 +18,21 @@ function Fallback() {
   );
 }
 
+function RequireAuth({ children }: { children: JSX.Element }) {
+  const currentUser = useCurrentUser();
+  if (!currentUser) {
+    return <Navigate to="/login" />;
+  }
+  return children;
+}
+
 function AppRoutes() {
   return (
     <Suspense fallback={<Fallback />}>
       <Routes>
-        <Route path="/" element={<div>tds support</div>} />
-        <Route path="/admin/*" element={<Admin />} />
+        <Route path="/admin/*" element={<RequireAuth children={<Admin />} />} />
         <Route path="/login" element={<Login />} />
+        <Route path="*" element={<Navigate to="/admin" replace />} />
       </Routes>
     </Suspense>
   );
