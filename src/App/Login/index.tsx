@@ -5,6 +5,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/antd';
 import { client } from '@/http';
 import { useCurrentUserState } from '@/App/states';
+import { UserSchema } from '@/api/user';
 
 interface LoginFormData {
   username: string;
@@ -18,14 +19,20 @@ export default function Login() {
   const [currentUser, setCurrentUser] = useCurrentUserState();
   const navigate = useNavigate();
 
-  const onSubmit = handleSubmit((data) => {
+  const onSubmit = handleSubmit(async (data) => {
     setLoading(true);
-    client.defaults.auth = {
-      username: data.username,
-      password: data.password,
-    };
-    setCurrentUser({ username: data.username });
-    navigate('/');
+    try {
+      const res = await client.post<{ user: UserSchema }>('/api/v1/users/login', data);
+      setCurrentUser(res.data.user);
+      client.defaults.auth = {
+        username: data.username,
+        password: data.password,
+      };
+      navigate('/');
+    } catch (error) {
+      setErrorMessage((error as Error).message);
+      setLoading(false);
+    }
   });
 
   if (currentUser) {
@@ -54,21 +61,12 @@ export default function Login() {
             />
           </div>
 
-          <Button
-            className="w-full mt-4"
-            type="primary"
-            htmlType="submit"
-            loading={loading}
-          >
+          <Button className="w-full mt-4" type="primary" htmlType="submit" loading={loading}>
             Sign in
           </Button>
         </form>
 
-        {errorMessage && (
-          <p className="w-full mt-2 text-red-500 overflow-hidden">
-            {errorMessage}
-          </p>
-        )}
+        {errorMessage && <p className="w-full mt-2 text-red-500 overflow-hidden">{errorMessage}</p>}
       </div>
     </div>
   );
