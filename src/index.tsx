@@ -1,7 +1,9 @@
 import { StrictMode } from 'react';
 import { render } from 'react-dom';
 import moment from 'moment';
-import 'moment/locale/zh-cn';
+import 'moment/dist/locale/zh-cn';
+import { ConfigProvider } from 'antd';
+import zhCN from 'antd/lib/locale/zh_CN';
 
 import * as Sentry from '@sentry/react';
 import { Integrations } from '@sentry/tracing';
@@ -29,7 +31,9 @@ if (import.meta.env.VITE_SENTRY_WEB_DSN) {
 
 render(
   <StrictMode>
-    <App />
+    <ConfigProvider locale={zhCN}>
+      <App />
+    </ConfigProvider>
   </StrictMode>,
   document.getElementById('app')
 );
