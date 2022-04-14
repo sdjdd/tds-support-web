@@ -180,6 +180,7 @@ export function FilterForm({ className, filters, onChange }: FilterFormProps) {
             allowClear
             className="w-full"
             placeholder="任何"
+            value={categoryId}
             onChange={(categoryId) => merge({ categoryId })}
           />
         </Field>

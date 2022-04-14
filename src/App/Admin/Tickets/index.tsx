@@ -6,6 +6,7 @@ import { usePagination } from '@/utils/use-pagination';
 import { Topbar } from './components/Topbar';
 import { FilterForm } from './components/Filter';
 import { TicketTable } from './components/TicketTable';
+import { Ticket } from './Ticket';
 
 const PAGE_SIZE = 20;
 
@@ -87,6 +88,7 @@ export default function Tickets() {
   return (
     <Routes>
       <Route index element={<TicketList />} />
+      <Route path=":id" element={<Ticket />} />
     </Routes>
   );
 }
